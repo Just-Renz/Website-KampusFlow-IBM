@@ -1,0 +1,184 @@
+/*
+ * style.css — KampusFlow
+ * Hanya berisi styling tambahan yang tidak dapat dicapai dengan Tailwind utility class saja.
+ * Styling utama ada di index.html via Tailwind CDN.
+ */
+
+/* ── Custom box-shadow ─────────────────────────────────────────── */
+.shadow-soft {
+  box-shadow: 0 2px 12px 0 rgba(15, 23, 42, 0.07);
+}
+
+/* ── Filter tab base ───────────────────────────────────────────── */
+.filter-tab {
+  padding: 0.375rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 0.625rem;
+  color: #64748b;         /* slate-500 */
+  transition: background-color 150ms, color 150ms;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.filter-tab:hover {
+  background-color: #f1f5f9; /* slate-100 */
+  color: #1e40af;            /* brand-800 */
+}
+
+/* Active filter tab */
+.filter-tab.active-tab {
+  background-color: #2563eb; /* brand-600 */
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ── Task item ─────────────────────────────────────────────────── */
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;   /* slate-200 */
+  border-radius: 1rem;
+  box-shadow: 0 1px 4px 0 rgba(15, 23, 42, 0.05);
+  transition: box-shadow 200ms, border-color 200ms, opacity 200ms;
+  /* Used for enter / exit animation */
+  animation: slideIn 220ms ease-out both;
+}
+
+.task-item:hover {
+  box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.1);
+  border-color: #bfdbfe; /* brand-200 */
+}
+
+/* Completed task — slightly muted */
+.task-item.completed {
+  opacity: 0.65;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: #94a3b8; /* slate-400 */
+}
+
+/* ── Custom checkbox ───────────────────────────────────────────── */
+.task-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1; /* slate-300 */
+  background: #ffffff;
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms;
+  position: relative;
+  margin-top: 0.1rem;
+}
+
+.task-checkbox:hover {
+  border-color: #3b82f6; /* brand-500 */
+}
+
+.task-checkbox:checked {
+  background-color: #22c55e; /* green-500 */
+  border-color: #22c55e;
+}
+
+/* Checkmark via pseudo-element */
+.task-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 5.5px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #ffffff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ── Task text ─────────────────────────────────────────────────── */
+.task-text {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  word-break: break-word;
+  color: #1e293b; /* slate-800 */
+  transition: color 200ms;
+  padding-top: 0.05rem;
+}
+
+/* ── Action buttons (edit / delete) ────────────────────────────── */
+.task-actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 180ms;
+}
+
+.task-item:hover .task-actions,
+.task-item:focus-within .task-actions {
+  opacity: 1;
+}
+
+/* Always visible on touch screens */
+@media (hover: none) {
+  .task-actions {
+    opacity: 1;
+  }
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+  color: #94a3b8; /* slate-400 */
+}
+
+.action-btn:hover {
+  background-color: #f1f5f9; /* slate-100 */
+}
+
+.action-btn.edit-btn:hover {
+  color: #f97316; /* accent-500 */
+}
+
+.action-btn.delete-btn:hover {
+  color: #ef4444; /* red-500 */
+}
+
+/* ── Modal animation ───────────────────────────────────────────── */
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+.animate-modal {
+  animation: modalIn 200ms ease-out both;
+}
+
+/* ── Slide-in animation for new task items ──────────────────────── */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Toast slide-up ────────────────────────────────────────────── */
+.toast-visible {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(-4px) !important;
+}
